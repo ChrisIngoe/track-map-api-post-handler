@@ -37,7 +37,7 @@ jobs:
           zip lambda.zip index.js
 
       - name: Deploy to AWS
-        uses: yvesgurcan/deploy-lambda-function
+        uses: stcalica/update-lambda
         with:
           package: lambda.zip
           function-name: track-map-api-handler
