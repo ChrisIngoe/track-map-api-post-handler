@@ -1,0 +1,46 @@
+name: Build and deploy MASTER branch to AWS Lambda
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
+      - name: Print environment
+        shell: bash
+        run: echo "running ${{ steps.extract_branch.outputs.branch }} build"
+
+      - name: Checkout the repo
+        uses: actions/checkout@master
+
+      - name: Install npm packages
+        shell: bash
+        env:
+          NODE_ENV: ${{ steps.extract_branch.outputs.branch }}
+        run: |
+          cd $GITHUB_WORKSPACE
+          npm install
+
+      - name: Zip the package
+        shell: bash
+        run: |
+          cd $GITHUB_WORKSPACE
+          zip lambda.zip index.js
+
+      - name: Deploy to AWS
+        uses: yvesgurcan/deploy-lambda-function
+        with:
+          package: lambda.zip
+          function-name: ${{github.repository}}-${{ steps.extract_branch.outputs.branch }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_SECRET_ID: ${{ secrets.AWS_SECRET_ID }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
