@@ -36,11 +36,12 @@ jobs:
           cd $GITHUB_WORKSPACE
           zip lambda.zip index.js
 
-      - name: Deploy to AWS
-        uses: stcalica/update-lambda
+      - name: AWS Lambda Deploy
+        uses: appleboy/lambda-action@v0.0.4
         with:
-          package: lambda.zip
-          function-name: track-map-api-handler
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_SECRET_ID: ${{ secrets.AWS_SECRET_ID }}
-          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          zip_file: lambda.zip
+          function_name: track-map-api-handler
+          publish: true
+          aws_region: ${{ secrets.AWS_REGION }}
+          aws_access_key_id: ${{ secrets.AWS_SECRET_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
