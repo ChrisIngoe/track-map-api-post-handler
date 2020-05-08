@@ -6,7 +6,7 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
  * Dummy Code!!!
  */
 exports.handler = async (event, context) => {
-  //console.log('Received event:', JSON.stringify(event, null, 2));
+  console.log('Received event:', JSON.stringify(event, null, 2));
 
   let body;
   let statusCode = '200';
@@ -15,7 +15,8 @@ exports.handler = async (event, context) => {
   };
 
   try {
-    switch (event.httpMethod) {
+    console.log('Save data to Dynamodb...');
+    /*switch (event.httpMethod) {
       case 'DELETE':
         body = await dynamo.delete(JSON.parse(event.body)).promise();
         break;
@@ -30,7 +31,7 @@ exports.handler = async (event, context) => {
         break;
       default:
         throw new Error(`Unsupported method "${event.httpMethod}"`);
-    }
+    }*/
   } catch (err) {
     statusCode = '400';
     body = err.message;
