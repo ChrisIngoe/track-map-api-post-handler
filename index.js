@@ -15,7 +15,8 @@ exports.handler = async (event, context) => {
   };
 
   let data = event;
-  event.locationId = Date.now();
+  event.locationId = Math.round(Date.now() / 1000);
+  event.ttl = Date.now() + 86400; //expires after 1 day
 
   let params = {
     TableName: 'track-map',
@@ -26,7 +27,6 @@ exports.handler = async (event, context) => {
     console.log(params);
     body = await dynamo.put(params).promise();
   } catch (err) {
-    console.error(err);
     statusCode = '400';
     body = err.message;
   } finally {
