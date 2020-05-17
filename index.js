@@ -15,8 +15,8 @@ exports.handler = async (event, context) => {
   };
 
   let data = event;
-  event.locationId = Math.round(Date.now() / 1000);
-  event.ttl = Date.now() + 86400; //expires after 1 day
+  event.locationId = Date.now();
+  event.ttl = Math.round((Date.now() + 86400) / 1000); //expires after 1 day
 
   let params = {
     TableName: 'track-map',
