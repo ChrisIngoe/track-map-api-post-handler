@@ -4,7 +4,7 @@ const dynamo = new AWS.DynamoDB.DocumentClient({
   region: process.env.REGION,
 });
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   console.log('Received event:', JSON.stringify(event, null, 2));
 
   let body;
