@@ -80,4 +80,17 @@ describe('when inserting a new location into DynamoDB', function () {
     expect(putFunc.firstCall.args[0].Item.locationId).is.greaterThan(Date.now() - 1000);
     expect(putFunc.firstCall.args[0].Item.locationId).is.lessThan(Date.now() + 1);
   });
+
+  it('the record ttl value should be +- 3 seconds around 7 days from now', async () => {
+    putFunc.withArgs(sinon.match.any).returns({
+      promise: () => {},
+    });
+
+    await scriptToTest.handler({}, {});
+    expect(putFunc.calledOnce).to.be.true;
+    expect(putFunc.firstCall.args.length).to.equal(1);
+    expect(putFunc.firstCall.args[0].Item).exist;
+    expect(putFunc.firstCall.args[0].Item.ttl).is.greaterThan(Math.round(Date.now() / 1000 + 604797));
+    expect(putFunc.firstCall.args[0].Item.ttl).is.lessThan(Math.round(Date.now() / 1000 + 604803));
+  });
 });
