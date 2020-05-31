@@ -93,4 +93,24 @@ describe('when inserting a new location into DynamoDB', function () {
     expect(putFunc.firstCall.args[0].Item.ttl).is.greaterThan(Math.round(Date.now() / 1000 + 604797));
     expect(putFunc.firstCall.args[0].Item.ttl).is.lessThan(Math.round(Date.now() / 1000 + 604803));
   });
+
+  it('should return status 400 if DynamoDB errors', async () => {
+    putFunc.withArgs(sinon.match.any).throws();
+
+    const data = await scriptToTest.handler({}, {});
+    expect(data).is.not.undefined;
+    expect(data.statusCode).equals('400');
+    expect(data.body).equals('Bad request');
+  });
+
+  it('should return status 200 for a valid location', async () => {
+    putFunc.withArgs(sinon.match.any).returns({
+      promise: () => {},
+    });
+
+    const data = await scriptToTest.handler(location, {});
+    expect(data).is.not.undefined;
+    expect(data.statusCode).equals('200');
+    expect(data.body).equals('Ok');
+  });
 });

@@ -5,7 +5,7 @@ const dynamo = new AWS.DynamoDB.DocumentClient({
 });
 
 exports.handler = async (event) => {
-  console.log('Received event:', JSON.stringify(event, null, 2));
+  //console.log('Received event:', JSON.stringify(event, null, 2));
 
   let body;
   let statusCode = '200';
@@ -23,15 +23,14 @@ exports.handler = async (event) => {
   };
 
   try {
-    console.log(params);
+    //console.log(params);
     body = await dynamo.put(params).promise();
-    console.log(body);
+    //console.log(body);
+    body = 'Ok';
   } catch (err) {
     statusCode = '400';
-    console.log(err);
-    body = err.message;
-  } finally {
-    body = JSON.stringify(body);
+    //console.log(err);
+    body = 'Bad request';
   }
 
   return {
