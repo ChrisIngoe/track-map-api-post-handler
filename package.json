@@ -1,5 +1,5 @@
 {
-  "name": "track-map-api-handler",
+  "name": "track-map-api-post-handler",
   "version": "1.0.0",
   "description": "Serverless API handler for storing Track Map location points",
   "main": "index.js",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChrisIngoe/track-map-api-handler.git"
+    "url": "git+https://github.com/ChrisIngoe/track-map-api-post-handler.git"
   },
   "keywords": [
     "aws",
@@ -33,7 +33,7 @@
   "author": "Chris Ingoe",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ChrisIngoe/track-map-api-handler/issues"
+    "url": "https://github.com/ChrisIngoe/track-map-api-post-handler/issues"
   },
-  "homepage": "https://github.com/ChrisIngoe/track-map-api-handler#readme"
+  "homepage": "https://github.com/ChrisIngoe/track-map-api-post-handler#readme"
 }

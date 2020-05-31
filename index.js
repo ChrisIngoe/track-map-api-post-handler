@@ -23,13 +23,10 @@ exports.handler = async (event) => {
   };
 
   try {
-    //console.log(params);
-    body = await dynamo.put(params).promise();
-    //console.log(body);
+    await dynamo.put(params).promise();
     body = 'Ok';
   } catch (err) {
     statusCode = '400';
-    //console.log(err);
     body = 'Bad request';
   }
 

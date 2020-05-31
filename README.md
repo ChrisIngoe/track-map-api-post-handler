@@ -1,4 +1,4 @@
-# TRACK MAP API HANDLER
+# TRACK MAP API POST HANDLER
 
 AWS Lambda function for handling Track Map location points and storing them to a AWS DynamoDB service.
 
@@ -23,5 +23,5 @@ AWS_SECRET_KEY
 ## Testing
 
 ```
-npm run tests
+npm run test
 ```
