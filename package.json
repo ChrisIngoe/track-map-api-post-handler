@@ -5,10 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint / test/",
-    "test": "mocha ./tests/*.js --timeout 3000",
-    "start": "./start-server.sh",
-    "stop": "./stop-server.sh",
-    "postinstall": "serverless dynamodb install 2>&1 | awk 'NF'"
+    "test": "mocha ./tests/*.js --timeout 3000"
   },
   "dependencies": {},
   "devDependencies": {
